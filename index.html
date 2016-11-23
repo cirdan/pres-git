@@ -1,0 +1,465 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style>
+			section.smaller p{
+				font-size:.8em;
+			}
+			section pre code.ok{
+				background-image:url("ok.png");
+				background-repeat:no-repeat;
+				background-position:95% 50%;
+				background-size:100px;
+			}
+			section pre code.forbidden{
+				background-image:url("forbidden.png");
+				background-repeat:no-repeat;
+				background-position:95% 50%;
+				background-size:100px;
+			}
+			section img.noborder{
+				border:0px;
+				background-color: transparent;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+					<h1>Git</h1>
+					<p>bonnes pratiques & guide de survie</p>
+					</section>
+					<section>
+						<h3>Pré-requis</h3>
+						<p>Je ne vous expliquerai pas (aujourd'hui) :</p>
+						<ul>
+							<li>Comment avoir une VM qui fonctionne</li>
+							<li>Ou trouver l'adresse du dépôt à utiliser</li>
+							<li>Comment vous connecter à la VM</li>
+						</ul>
+					</section>
+				</section>
+				<section><h1>Quelques rappels</h1></section>
+				<section>
+					<h3>Rappels<br />Git c'est quoi ?</h3>
+					<p class="fragment" data-fragment-index="1">Un <span class="fragment" data-fragment-index="3">D</span>VCS</p>
+					<p class="fragment" data-fragment-index="2">VCS : système de contrôle de versions</p>
+					<p class="fragment" data-fragment-index="4">D : distribué</p>
+				</section>
+				<section>
+					<h3>Rappels<br />A quoi sert Git ?</h3>
+					<p class="fragment">à versionner.</p>
+					<p class="fragment">à collaborer.</p>
+					<p class="fragment">à vérifier.</p>
+					<p class="fragment current-visible">à éviter les problèmes</p>
+					<h2 class="fragment">Git évite <em>certains</em> problèmes</h2>
+					<small class="fragment">(...une fois que l'on sait s'en servir...)</small>
+					</p>
+				</section>
+				<section>
+					<h3>Rappels<br />Les 3 zones d'un projet sous git</h3>
+					<ul>
+					<li><p class="fragment">Le répertoire de travail</p>
+					<em class="fragment">fichiers modifiés ou ajoutés</em></li>
+					<li>
+					<p class="fragment">La zone d'index</p>
+					<em class="fragment">fichiers prévus pour être envoyés dans le dépôt</em></li>
+					<li><p class="fragment">Le dépôt</p>
+					<em class="fragment">historique du projet</em></li>
+					</ul>
+				</section>
+				<section>
+					<h3>Rappels<br />Les commandes fondamentales :<br />quand tout se passe bien<br />
+					<small>(AKA : Git chez les bisounours)</small></h3>
+					<p>0 - Cloner le dépôt</p>
+					<pre class="fragment"><code>$ git clone url_de_mon_depot.git nom_du_dossier</code></pre>
+				</section>
+				<section>
+					<h3>Git chez les bisounours</h3>
+					<p class="fragment">1 - Coder</p>
+					<pre class="fragment"><code>&lt;?php echo "Hello world !"; ?&gt;</code></pre>
+					<p class="fragment">2 - Ajouter des fichiers dans l'index</p>
+					<pre class="fragment"><code>$ git add mon_fichier.php</code></pre>
+					<p class="fragment">3 - Commiter</p>
+					<pre class="fragment"><code>$ git commit -m "Un message pertinent"</code></pre>
+					<p class="fragment">4 - Pousser ses modifications</p>
+					<pre class="fragment"><code>$ git pull
+$ git push -u origin master</code></pre>
+					<p class="fragment">5 > Recommencer</p>
+					</ol>
+				</section>
+				<section>
+					<p>Il y a aussi</p>
+					<pre class="fragment"><code>$ git branch</code></pre>
+					<pre class="fragment"><code>$ git checkout maBranche</code></pre>
+					<pre class="fragment"><code>$ git remote</code></pre>
+					<pre class="fragment"><code>$ git rebase</code></pre>
+					<pre class="fragment"><code>$ git merge</code></pre>
+					<pre class="fragment"><code>$ git log</code></pre>
+					<p class="fragment">et surtout</p>
+					<pre class="fragment"><code>$ git help</code></pre>
+				</section>
+				<section>
+					<h3>Un exemple ?</h3>
+				</section>
+				<section class="smaller">
+					<div class="fragment">
+						<p>...Je dis qui je suis (la première fois) :</p>
+						<pre><code>$ git config --global user.email "sylvain@cirdan.net"
+$ git config --global user.name "Sylvain Ferlac"</code></pre>
+					</div>
+					<div class="fragment"><p>Je clone le dépôt :</p>
+						<pre><code>$ git clone git@github.com:cirdan/iutlr-demo-git.git stadeRochelais</code></pre>
+					</div>
+					<div class="fragment">
+						<p>...Je code, je vérifie :</p>
+						<pre><code>&lt;?php echo "Hello world !"; ?&gt;
+$ git status</code></pre>
+					</div>
+					<div class="fragment">
+						<p>...Je commite</p>
+						<pre><code>$ git add .
+$ git commit -m "Commit initial"</code></pre>
+					</div>
+					<div class="fragment">
+						<p>...Je pousse au distant :</p>
+						<pre><code>$ git push -u origin master</code></pre>
+					</div>
+				</section>
+				<section>
+					<section>
+						<h3>Encore un exemple ?</h3>
+						<p>(Attention, ça se complique)</p>
+					</section>
+					<section>
+						<h2>Le gestionnaire de dépendances (composer)</h2>
+						<p class="fragment">vous utilisez des librairies (symfony, doctrine, bootstrap...)</p>
+							<p class="fragment">composer permet :</p>
+								<ul>
+									<li class="fragment">d'automatiser leur installation</li>
+									<li class="fragment">de gèrer l'installation de leurs dépendances</li>
+									<li class="fragment">d'automatiser leurs mises à jour</li>
+								</ul>
+						<p class="fragment">votre projet est constitué de votre code et la description de vos dépendances...<br />
+						...et composer gère le reste</p>
+					</section>
+				</section>
+				<section class="smaller">
+					<div class="fragment">
+						<p>...Je code, je vérifie :</p>
+						<pre><code>$ symfony new stadeRochelais
+$ git status
+...modifications .gitignore
+$ git status</code></pre>
+					</div>
+					<div class="fragment">
+						<p>...Je commite</p>
+						<pre><code>$ git add .
+$ git commit -m "Moteur symfony"</code></pre>
+					</div>
+					<div class="fragment">
+						<p>...Je pousse au distant :</p>
+						<pre><code>$ git push -u origin master</code></pre>
+					</div>
+				</section>
+				<section>
+					<p>Pendant ce temps là,<br />
+					chez les collègues...<br />
+					...Ça pull.</p>
+					<img src="https://media.giphy.com/media/qNCQYYMiZ0EfK/giphy.gif" />
+				</section>
+				<section class="smaller">
+					<div class="fragment">
+						<p>Je récupère le travail des autres</p>
+						<pre><code>$ git pull</code></pre>
+					</div>
+					<div class="fragment"><p>Je mets à jour les dépendances</p>
+						<pre><code>$ composer install</code></pre>
+					</div>
+					<div class="fragment">
+						<p>...Je peux coder</p>
+					</div>
+				</section>
+				<section>
+				<h1>Les bonnes pratiques</h1>
+				</section>
+				<section>
+					<section>
+					<p>Les bonnes pratiques</p>
+					<h1>Niveau 0 : incontournable</h1>
+					</section>
+					<section>
+					<p>Les bonnes pratiques, niveau incontournable</p>
+						<p>Être identifiable</p>
+						<pre><code class="forbidden">
+$ git log
+commit c15c800f5364adf980a9ee3d70ad6edfa919cc39
+Author: user34@machine2234 &lt;no-set@locahost&gt;
+
+</code></pre>
+						<pre><code class="ok">$ git config --global user.email "sylvain@cirdan.net"
+$ git config --global user.name "Sylvain Ferlac"
+$ git log
+commit 19e3ff8f32c1614b7a38a76ce4b9051fd8c21bf8
+Author: Sylvain Ferlac &lt;sylvain@cirdan.net&gt;</code></pre>
+					</section>
+					<section>
+						<p>Faire des commits atomiques</p>
+						<pre><code class="forbidden">$ git log
+commit 054038fb7b75ea52c0510968bd54a8db52f19e76
+Author: John Doe &lt;john@doe.net&gt;
+Date:   Tue Nov 22 22:58:36 2016 +0100
+
+    Toutes les modifications du sprint 2
+
+</code></pre>
+<pre><code class="ok">$ git log
+commit 9d7532efe593dbee53dea9cb8054f9d17a9f00ca
+Author: Sylvain Ferlac &lt;sylvain@cirdan.net&gt;
+Date:   Tue Nov 22 22:58:36 2016 +0100
+
+    Correction de style sur liste utilisateurs
+
+commit 19e3ff8f32c1614b7a38a76ce4b9051fd8c21bf8
+Author: Sylvain Ferlac &lt;sylvain@cirdan.net&gt;
+Date:   Tue Nov 22 21:45:52 2016 +0000
+
+    Prise en compte config dans .gitignore
+
+</code></pre>
+					</section>
+					<section>
+						<p>Des messages de commit pertinents</p>
+						<pre><code class="forbidden">$ git log
+commit 054038fb7b75ea52c0510968bd54a8db52f19e76
+Author: John Doe &lt;john@doe.net&gt;
+Date:   Tue Nov 22 22:58:36 2016 +0100
+
+    Oups. Correction erreur.
+
+</code></pre>
+<pre><code class="ok">$ git log
+commit 9d7532efe593dbee53dea9cb8054f9d17a9f00ca
+Author: Sylvain Ferlac &lt;sylvain@cirdan.net&gt;
+Date:   Tue Nov 22 22:58:36 2016 +0100
+
+    FIX date évènement non affichée
+
+</code></pre>
+					</section>
+					<section>
+						<p>Ne commiter que ce qui est nécessaire</p>
+						<pre><code class="forbidden">$ git status
+commit 054038fb7b75ea52c0510968bd54a8db52f19e76
+Author: John Doe &lt;john@doe.net&gt;
+Date:   Tue Nov 22 22:58:36 2016 +0100
+
+    Mise à jour mot de passe base de donnée
+
+</code></pre>
+<pre><code class="ok">$ git log
+commit 9d7532efe593dbee53dea9cb8054f9d17a9f00ca
+Author: Sylvain Ferlac &lt;sylvain@cirdan.net&gt;
+Date:   Tue Nov 22 22:58:36 2016 +0100
+
+    Exemple fichier de config base de donnée
+
+</code></pre>
+					</section>
+					<section>
+						<p>Soigner son .gitignore</p>
+						<pre><code class="forbidden">
+
+
+
+							
+						</code></pre>
+<pre><code class="ok">$ git log
+# Parameters
+/app/config/parameters.yml
+/app/config/parameters.ini
+# Managed by Composer
+/app/bootstrap.php.cache
+/var/bootstrap.php.cache
+/bin/*
+!bin/console
+!bin/symfony_requirements
+/vendor/
+
+</code></pre>
+					</section>
+					<section>
+					<p>Les bonnes pratiques,<br />
+					niveau 0 : incontournable</p>
+					<ul>
+						<li>Être identifiable</li>
+						<li>Committer souvent</li>
+						<li>Faire des commits atomiques
+							<ul>
+								<li>des commits finis</li>
+								<li>des commits les plus réduits possibles, en restant cohérent</li>
+							</ul>
+						</li>
+						<li>Être explicite : des message de commit pertinents</li>
+						<li>Ne commiter que ce qui est nécessaire</li>
+						<li>Soigner son .gitignore</li>
+					</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<p>Les bonnes pratiques</p>
+						<h1>Niveau 1 : indispensable</h1>
+					</section>
+					<section>
+						<p>Les bonnes pratiques</p>
+						<p>Niveau 1 : indispensable</p>
+						<h1>Avoir une stratégie de branches au distant</h1>
+					</section>
+					<section>
+						<p>Gitflow (simplifié)</p>
+						<img src="https://raw.githubusercontent.com/Voronenko/gitflow-release/master/images/git-workflow-release-cycle-4maintenance.png" class="noborder" />
+					</section>
+					<section>
+						<p>Gitflow (simplifié)</p>
+						<ul>
+							<li>Master est toujours déployable en production</li>
+							<li>Develop est la branche où sont livrées les nouveautés</li>
+							<li>Pour chaque nouvelle fonction, on crée une branche</li>
+							<li>On peut tagguer des <em>releases</em></li>
+						</ul>
+					</section>
+					<section>
+						<p>En local, on fait ce qu'on veut</p>
+						<ul>
+							<li>Faites des branches</li>
+							<li>Faites une branche pour corriger un bug</li>
+							<li>Faites une branche pour tester quelque chose</li>
+							<li>Faites une branche pour faire une fonctionnalité</li>
+							<li>Faites une branche pour vérifier si tout merge</li>
+							<li>Faites des branches, c'est gratuit.</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<p>Les bonnes pratiques</p>
+						<h1>Niveau 2 : employable</h1>
+					</section>
+					<section>
+						<p>Les bonnes pratiques</p>
+						<p>Niveau 2 : employable</p>
+						<ul>
+							<li>Un historique propre avec squash</li>
+							<li>Les alias</li>
+							<li>La communication</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>K(G)it de survie en milieu hostile</h1>
+					</section>
+					<section>
+						<p>J'ai gardé mes moufles</p>
+						<pre><code>$ git commit -m "Ajourt d'un ficheir de cnofig d'exmepel"
+$ git commit --amend
+</code></pre>
+					</section>
+					<section>
+						<p>Je veux revenir à la version de base de ce fichier</p>
+						<pre><code>$ git checkout monChemin/monFichier.php</code></pre>
+					</section>
+					<section>
+						<p>Git refuse que je change de branche : j'ai des fichiers modifiés</p>
+						<pre><code>$ git stash</code></pre>
+					</section>
+					<section>
+						<p>Mais pourquoi ais-je mis ça dans l'index ?</p>
+						<pre><code>$ git reset monFichier.php</code></pre>
+					</section>
+					<section>
+						<p>J'ai complètement pourri ma branche</p>
+						<pre><code>$ git checkout .</code></pre>
+					</section>
+					<section>
+						<p>Je veux faire une branche à partir de mes modifications courantes</p>
+						<pre><code>$ git checkout -b nomDeMaBranche</code></pre>
+					</section>
+					<section>
+						<p>Mais c'est quoi les modifs que j'ai fait ?</p>
+						<pre><code>$ git diff</code></pre>
+					</section>
+					<section>
+						<p>Je sais que la base a progressé : me mettre à jour</p>
+						<pre><code>$ git rebase bracheDevelop</code></pre>
+					</section>
+					<section>
+						<p>Oups. J'aurais pas du faire ce commit !</p>
+						<pre><code class="ok">
+
+git reset HEAD~  
+
+
+</code></pre>
+					</section>
+					<section>
+						<p>Mon push est refusé</p>
+						<pre><code class="forbidden">
+
+$ git push --force
+
+</code></pre>
+						<pre><code class="ok">$ git pull
+...correction des conflits...
+$ git add
+$ git commit
+$ git push</code></pre>
+					</section>
+				</section>
+				<section>
+					<p>Merci</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+				width: 960,
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
